@@ -5,6 +5,9 @@ import Otp from "./pages/Otp";
 import Error from "./pages/Error";
 import Header from './components/Header';
 import { Route, Routes } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './App.css';
 
 function App() {
