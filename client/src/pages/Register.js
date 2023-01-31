@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 // import {registerfunction} from "../services/Apis";
 // import {useNavigate} from "react-router-dom"
+import { registerfunction } from '../services/Apis';
 import "../styles/mix.css"
 
 const Register = () => {
@@ -40,15 +41,8 @@ const Register = () => {
     }else if(password.length < 6){
       toast.error("password length minimum 6 character")
     }else{
-      // const response = await registerfunction(inputdata);
-      
-      // if(response.status === 200){
-      //   setInputdata({...inputdata,fname:"",email:"",password:""});
-      //   navigate("/")
-      // }else{
-      //   toast.error(response.response.data.error);
-      // }
-      toast.success("register Done");
+      const response = await registerfunction(inputdata);
+      console.log(response);
     }
   }
 
