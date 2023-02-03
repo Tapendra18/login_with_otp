@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "../styles/mix.css";
 import {NavLink} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { sentOtpFunction } from '../services/Apis';
 
 const Login = () => {
 
@@ -9,7 +10,7 @@ const Login = () => {
 
 //send OTP
 
-  const sendOtp = (e) =>{
+  const sendOtp = async(e) =>{
     e.preventDefault();
 
     if(email === ""){
@@ -17,7 +18,11 @@ const Login = () => {
     }else if(!email.includes("@")){
       toast.error("Enter Your Email!");
     }else{
-      toast.success("Login done")
+      const data = {
+        email:email
+      }
+      const response = await sentOtpFunction(data);
+      console.log(response, "resssssssssssss");
     }
   }
 
