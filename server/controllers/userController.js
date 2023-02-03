@@ -69,13 +69,13 @@ exports.userOtpSend = async (req, res) => {
                     text: `OTP:- ${OTP}`
                 }
 
-                tarnsporter.sendMail(mailOptions, (error, info) => {
+                transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
                         console.log("error", error);
-                        res.status(400).json({ error: "email not send" })
+                        res.status(400).json({ error: "Email Not Send" });
                     } else {
                         console.log("Email sent", info.response);
-                        res.status(200).json({ message: "Email sent Successfully" })
+                        res.status(200).json({ message: "Email sent Successfully" });
                     }
                 })
 
@@ -107,7 +107,7 @@ exports.userOtpSend = async (req, res) => {
             res.status(400).json({ error: "This User Not Exist In our Db" })
         }
     } catch (error) {
-        res.status(400).json({ error: "Invalid Details", error });
+        res.status(400).json({ error: "Invalid Details"+ error });
 
     }
 }
