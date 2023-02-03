@@ -1,6 +1,15 @@
 const users = require("../models/userSchema");
 const userotp = require("../models/userOtp");
+const nodemailer = require("nodemailer");
 
+//email config
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+    }
+})
 
 exports.userregister = async (req, res) => {
     const { fname, email, password } = req.body;
@@ -56,11 +65,44 @@ exports.userOtpSend = async (req, res) => {
 
                 await updateData.save();
 
-            }else{
+                const mailOptions = {
+                    from: process.env.EMAIL,
+                    to: email,
+                    subject: "Sending Email For Otp Validation",
+                    text: `otp:- ${OTP}`
+                }
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error", error);
+                        res.status(400).json({ error: "Email Not Send" })
+                    } else {
+                        console.log("Email sent ", info.response)
+                        res.status(200).json({ message: "Email sent successfully" })
+                    }
+                })
+
+            } else {
                 const saveOtpData = new userotp({
-                    email,otp:OTP
+                    email, otp: OTP
                 });
                 await saveOtpData.save();
+                const mailOptions = {
+                    from: process.env.EMAIL,
+                    to: email,
+                    subject: "Sending Email For Otp Validation",
+                    text: `otp:- ${OTP}`
+                }
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log("error", error);
+                        res.status(400).json({ error: "Email Not Send" })
+                    } else {
+                        console.log("Email sent ", info.response)
+                        res.status(200).json({ message: "Email sent successfully" })
+                    }
+                })
             }
         } else {
             res.status(400).json({ error: "This User Not Exit in Our db" });
