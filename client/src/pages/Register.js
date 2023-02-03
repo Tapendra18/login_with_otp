@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 // import {registerfunction} from "../services/Apis";
-// import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import { registerfunction } from '../services/Apis';
 import "../styles/mix.css"
 
@@ -15,7 +15,7 @@ const Register = () => {
     password:""
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   
 
   // setinputvalue
@@ -43,6 +43,13 @@ const Register = () => {
     }else{
       const response = await registerfunction(inputdata);
       console.log(response);
+
+      if(response.status === 200){
+        setInputdata({...inputdata, fname:"", email:"" , password:""});
+        navigate("/")
+      }else{
+        toast.error(response.data.error);
+      }
     }
   }
 
