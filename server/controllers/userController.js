@@ -1,6 +1,8 @@
 const users = require("../models/userSchema");
 const userotp = require("../models/userOtp");
 const nodemailer = require("nodemailer");
+// require('dotenv').config();
+require('dotenv').config();
 
 //email config
 const transporter = nodemailer.createTransport({
@@ -107,7 +109,7 @@ exports.userOtpSend = async (req, res) => {
             res.status(400).json({ error: "This User Not Exist In our Db" })
         }
     } catch (error) {
-        res.status(400).json({ error: "Invalid Details"+ error });
+        res.status(400).json({ error: "Invalid Details" + error });
 
     }
 }

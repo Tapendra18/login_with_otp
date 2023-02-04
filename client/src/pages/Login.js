@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import "../styles/mix.css";
 import {NavLink} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
